@@ -1,28 +1,31 @@
-<mat-toolbar>
-  <div class="image"></div>
-  <span>Segui Santa Lucia</span>
-  <span class="example-spacer"></span>
-  <button
-  mat-icon-button
-  class="example-icon"
-  (click)="share()"
-  aria-label="Example icon-button with share icon"
-  >
-  <mat-icon>share</mat-icon>
-</button>
-<button
-  mat-icon-button
-  class="example-icon"
-  [matMenuTriggerFor]="menu"
-  aria-label="Example icon-button with menu icon"
->
-  <mat-icon>settings</mat-icon>
-</button>
-</mat-toolbar>
-
-<mat-menu #menu>
-  <button mat-menu-item>
-    <mat-icon>login</mat-icon>
-    <span>Accedi</span>
-  </button>
-</mat-menu>
+<div class="card">
+  <p-menubar [model]="items">
+    <ng-template pTemplate="start">
+      <p-avatar
+        image="https://material.angular.io/assets/img/examples/shiba1.jpg"
+        shape="circle"
+      />
+    </ng-template>
+    <ng-template pTemplate="item" let-item let-root="root">
+      <a
+        pRipple
+        class="flex align-items-center p-menuitem-link"
+        (click)="item.url ? navigate(item.url) : share()"
+      >
+        <span [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <div class="flex align-items-center gap-2">
+        <a pRipple class="flex align-items-center p-menuitem-link">
+          <span
+            class="pi pi-sign-in"
+            style="font-size: larger;"
+          ></span>
+          <span class="ml-2">Accedi</span>
+        </a>
+      </div>
+    </ng-template>
+  </p-menubar>
+</div>
