@@ -1,18 +1,27 @@
 <mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
+  <div class="image"></div>
   <span>Segui Santa Lucia</span>
   <span class="example-spacer"></span>
   <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
+  mat-icon-button
+  class="example-icon"
+  aria-label="Example icon-button with share icon"
   >
-    <mat-icon>share</mat-icon>
-  </button>
+  <mat-icon>share</mat-icon>
+</button>
+<button
+  mat-icon-button
+  class="example-icon"
+  [matMenuTriggerFor]="menu"
+  aria-label="Example icon-button with menu icon"
+>
+  <mat-icon>settings</mat-icon>
+</button>
 </mat-toolbar>
+
+<mat-menu #menu>
+  <button mat-menu-item>
+    <mat-icon>login</mat-icon>
+    <span>Accedi</span>
+  </button>
+</mat-menu>
