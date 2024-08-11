@@ -1,0 +1,5 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+    <ng-container *ngFor="let item of tabs">
+        <mat-tab label="{{item.value}}">{{item.label}}</mat-tab>
+    </ng-container>
+</mat-tab-group>
