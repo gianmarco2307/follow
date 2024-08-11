@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTabsModule} from '@angular/material/tabs';
 import { TabItem, tabItems } from '../../configs/tabItems';
 import { NgForOf } from '@angular/common';
 
@@ -7,7 +6,7 @@ import { NgForOf } from '@angular/common';
 @Component({
   selector: 'app-tab',
   standalone: true,
-  imports: [MatTabsModule, NgForOf],
+  imports: [NgForOf],
   templateUrl: './tab.component.html',
   styleUrl: './tab.component.css'
 })
