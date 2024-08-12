@@ -1,13 +1,28 @@
-<h1>Login</h1>
+<div class="section">
+  <h1>Login</h1>
+  <br />
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div>
-        <input type="text" placeholder="Email" formControlName="email">
+      <p-floatLabel>
+        <input pInputText id="email" formControlName="email" />
+        <label for="email">Email</label>
+      </p-floatLabel>
     </div>
+    <br /><br />
     <div>
-        <input type="password" placeholder="Password" formControlName="password">
+      <p-floatLabel>
+        <p-password
+          formControlName="password"
+          [feedback]="false"
+          id="password"
+        />
+        <label for="password">Password</label>
+      </p-floatLabel>
     </div>
+    <br /><br />
     <div>
-        <button type="submit">Sign in</button>
+      <p-button type="submit" label="Accedi" />
     </div>
-</form>
+  </form>
+</div>
