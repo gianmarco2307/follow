@@ -16,11 +16,23 @@ export class TabComponent implements OnInit {
 
   ngOnInit(): void {
     this.tabs = tabItems;
-    this.activeItem = this.tabs[0];
+    this.activeItem = this.whatActiveItem();
+  }
+
+  whatActiveItem(): TabItem {
+    const now = new Date();
+    if(now.getDate() <= 24){
+      return this.tabs[0];
+    } else if(now.getDate() === 25){
+      if(now.getHours() <= 18){
+        return this.tabs[1];
+      }
+      return this.tabs[2];
+    }
+    return this.tabs[3];
   }
 
   onActiveItemChange(event: any) {
-    console.log(event);
     this.activeItem = event;
   }
 }
