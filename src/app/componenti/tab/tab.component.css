@@ -2,3 +2,8 @@
   display: flex;
   justify-content: center;
 }
+
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  border-color: var(--verde);
+  color: var(--verde)
+}
