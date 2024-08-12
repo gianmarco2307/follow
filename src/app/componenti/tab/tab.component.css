@@ -1,0 +1,4 @@
+:host ::ng-deep .p-tabmenu-nav {
+  display: flex;
+  justify-content: center;
+}
