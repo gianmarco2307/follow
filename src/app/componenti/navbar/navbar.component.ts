@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
 import { Router, RouterLink } from '@angular/router';
+import { AuthenticationService } from '../../servizi/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -26,7 +27,7 @@ import { Router, RouterLink } from '@angular/router';
 export class NavbarComponent implements OnInit {
   items: MenuItem[] | undefined;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthenticationService) {}
 
   ngOnInit() {
     this.items = [
@@ -68,5 +69,13 @@ export class NavbarComponent implements OnInit {
     } else {
       console.log('API Web Share non supportata nel browser');
     }
+  }
+
+  isLogged(): boolean {
+    return this.authService.isLogged();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
