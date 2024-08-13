@@ -33,6 +33,7 @@ export class LoginComponent {
     this.authService.login(rawForm.email, rawForm.password).subscribe({
       next: () => {
         console.log('Login successful');
+        this.router.navigate(['/home']);
       },
       error: (error) => {
         console.error(error);
