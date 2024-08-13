@@ -1,10 +1,7 @@
 <div class="card">
   <p-menubar [model]="items">
     <ng-template pTemplate="start">
-      <p-avatar
-        image="assets/LogoDeputazione.png"
-        shape="circle"
-      />
+      <p-avatar image="assets/LogoDeputazione.png" shape="circle" />
     </ng-template>
     <ng-template pTemplate="item" let-item let-root="root">
       <a
@@ -17,21 +14,34 @@
       </a>
     </ng-template>
     <ng-template pTemplate="end">
-      <div class="flex align-items-center gap-2">
-        @if(isLogged()){
-          <a pRipple class="flex align-items-center p-menuitem-link" (click)="logout()">
-            <span
-              class="pi pi-sign-in"
-              style="font-size: larger;"
-            ></span>
+      <div class="flex align-items-center gap-2 auth-section">
+        @if (isLogged()) {
+          <a
+            pRipple
+            class="flex align-items-center p-menuitem-link"
+            routerLink="/manage"
+            style="margin: auto 10px"
+          >
+            <span class="pi pi-sliders-h"></span>
+            <span class="ml-2">Gestisci</span>
+          </a>
+          <a
+            pRipple
+            class="flex align-items-center p-menuitem-link"
+            (click)="logout()"
+            style="margin: auto 10px"
+          >
+            <span class="pi pi-sign-in" style="font-size: larger"></span>
             <span class="ml-2">Esci</span>
           </a>
         } @else {
-          <a pRipple class="flex align-items-center p-menuitem-link" routerLink="/login">
-            <span
-              class="pi pi-sign-in"
-              style="font-size: larger;"
-            ></span>
+          <a
+            pRipple
+            class="flex align-items-center p-menuitem-link"
+            routerLink="/login"
+            style="margin: auto 10px"
+          >
+            <span class="pi pi-sign-in" style="font-size: larger"></span>
             <span class="ml-2">Accedi</span>
           </a>
         }
