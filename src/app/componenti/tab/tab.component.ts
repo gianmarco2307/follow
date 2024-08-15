@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TabItem, tabItems } from '../../configs/tabItems';
 import { NgForOf } from '@angular/common';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab',
@@ -14,9 +15,12 @@ export class TabComponent implements OnInit {
   protected tabs: TabItem[] = [];
   protected activeItem!: TabItem;
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.tabs = tabItems;
     this.activeItem = this.whatActiveItem();
+    this.router.navigate([`home/${this.activeItem.option}`]);
   }
 
   whatActiveItem(): TabItem {
@@ -34,5 +38,6 @@ export class TabComponent implements OnInit {
 
   onActiveItemChange(event: any) {
     this.activeItem = event;
+    this.router.navigate([`home/${this.activeItem.option}`]);
   }
 }
