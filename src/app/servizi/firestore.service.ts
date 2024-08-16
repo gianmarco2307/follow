@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, Firestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { collection, collectionData, doc, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
+import { from, Observable } from 'rxjs';
 import { Percorso } from '../models/Percorso';
 
 @Injectable({
@@ -16,5 +16,12 @@ export class FirestoreService {
     return collectionData(this.percorsi, {
       idField: 'id'
     }) as Observable<Percorso[]>;
+  }
+
+  updatePercorso(docId: string): Observable<any> {
+    const newPer: Percorso = {id: 'Ciao', checkpoint: []};
+    const docRef = doc(this.percorsi, docId);
+    const promise = setDoc(docRef, newPer);
+    return from(promise);
   }
 } 
