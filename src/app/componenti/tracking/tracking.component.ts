@@ -37,6 +37,9 @@ export class TrackingComponent implements OnInit, OnDestroy {
   getPercorso(): void {
     this.firestoreService.getPercorsi().subscribe((percorsi) => {
       console.log(percorsi.filter((percorso: any) => percorso.id === this.id())[0]);
+
+      //Per formattare la data
+      //console.log(percorsi.filter((percorso: any) => percorso.id === this.id())[0].checkpoint[0].orarioPassaggioPrevisto.toDate());
     });
   }
 
