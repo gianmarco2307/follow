@@ -12,6 +12,8 @@ export class FirestoreService {
   percorsi = collection(this.firestore, 'percorsi');
   
   getPercorsi(): Observable<any> {
-    return collectionData(this.percorsi)
+    return collectionData(this.percorsi, {
+      idField: 'id'
+    })
   }
 } 
