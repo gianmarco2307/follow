@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Percorso } from '../models/Percorso';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,9 @@ export class FirestoreService {
 
   percorsi = collection(this.firestore, 'percorsi');
   
-  getPercorsi(): Observable<any> {
+  getPercorsi(): Observable<Percorso[]> {
     return collectionData(this.percorsi, {
       idField: 'id'
-    })
+    }) as Observable<Percorso[]>;
   }
 } 
