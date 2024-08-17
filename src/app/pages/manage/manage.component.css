@@ -12,3 +12,12 @@
 :host ::ng-deep .p-datatable {
     margin-top: 20px;
 }
+
+:host ::ng-deep .p-button {
+    background-color: var(--verde);
+    border-color: var(--verde);
+}
+
+:host ::ng-deep .p-button:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--verde), 0 1px 2px 0 black;
+}
