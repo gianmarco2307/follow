@@ -51,6 +51,10 @@ export class NavbarComponent implements OnInit {
   navigate(url?: string) {
     this.router.navigate([url]);
   }
+
+  navigateToHome() {
+    window.location.href = '/home';
+  }
   
   share() {
     if (navigator.share) {

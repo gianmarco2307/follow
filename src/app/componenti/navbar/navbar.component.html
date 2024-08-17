@@ -7,7 +7,7 @@
       <a
         pRipple
         class="flex align-items-center p-menuitem-link"
-        (click)="item.url ? navigate(item.url) : share()"
+        (click)="item.url ? item.label === 'Segui Santa Lucia' ? navigateToHome() : navigate(item.url) : share()"
       >
         <span [class]="item.icon"></span>
         <span class="ml-2">{{ item.label }}</span>
