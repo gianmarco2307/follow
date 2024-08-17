@@ -1,0 +1,10 @@
+:host ::ng-deep .p-dropdown {
+    width: 250px;
+    margin: auto;
+}
+
+.drop-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

@@ -1,1 +1,9 @@
-<p>manage works!</p>
+<div class="drop-container">
+    <p-dropdown
+      [options]="tabItems"
+      [(ngModel)]="selectedDay"
+      optionLabel="label"
+      placeholder="Seleziona giorno"
+      (onChange)="itemChanged($event)"
+    />
+</div>
