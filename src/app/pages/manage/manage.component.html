@@ -7,3 +7,49 @@
       (onChange)="itemChanged($event)"
     />
 </div>
+
+<div class="content">
+    <p-table [value]="percorso.checkpoint" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nome</th>
+                <th>ID</th>
+                <th>Arrivo Previsto</th>
+                <th>Arrivo Effettivo</th>
+                <th>Partenza Prevista</th>
+                <th>Partenza Effettiva</th>
+                <th>Transito Previsto</th>
+                <th>Transito Effettivo</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cp>
+            <tr>
+                <td>{{ cp.nome }}</td>
+                <td>{{ cp.id }}</td>
+                @if(cp.orarioArrivoPrevisto){
+                    <td>{{ cp.orarioArrivoPrevisto | date:'HH:mm'}}</td>
+                    <td>{{ cp.orarioArrivoEffettivo | date:'HH:mm' }}</td>
+                } @else {
+                    <td> --:-- </td>
+                    <td> --:-- </td>
+                }
+                @if(cp.orarioPartenzaPrevisto){
+                    <td>{{ cp.orarioPartenzaPrevisto | date:'HH:mm' }}</td>
+                    <td>{{ cp.orarioPartenzaEffettivo | date:'HH:mm' }}</td>
+                } @else {
+                    <td> --:-- </td>
+                    <td> --:-- </td>
+                }
+                @if(cp.orarioPassaggioPrevisto){
+                    <td>{{ cp.orarioPassaggioPrevisto | date:'HH:mm' }}</td>
+                    <td>{{ cp.orarioPassaggioEffettivo | date:'HH:mm' }}</td>
+                } @else {
+                    <td> --:-- </td>
+                    <td> --:-- </td>
+                }
+                <td><p-button label="Salva" /></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

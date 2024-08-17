@@ -8,3 +8,7 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+:host ::ng-deep .p-datatable {
+    margin-top: 20px;
+}
