@@ -43,21 +43,29 @@ export class ManageComponent {
             this.percorso.checkpoint[i].orarioArrivoPrevisto = this.percorso.checkpoint[i].orarioArrivoPrevisto.toDate();
             //@ts-ignore
             this.percorso.checkpoint[i].orarioArrivoEffettivo = this.percorso.checkpoint[i].orarioArrivoEffettivo.toDate();
+            const times = [this.percorso.checkpoint[i].orarioArrivoEffettivo?.toLocaleString().split(', ')[1].split(':')[0], this.percorso.checkpoint[i].orarioArrivoEffettivo?.toLocaleString().split(', ')[1].split(':')[1]];
+            //@ts-ignore
+            this.percorso.checkpoint[i].orarioArrivoEffettivo = times[0] + ':' + times[1];
           }
           if (this.percorso.checkpoint[i].orarioPartenzaPrevisto) {
             //@ts-ignore
             this.percorso.checkpoint[i].orarioPartenzaPrevisto = this.percorso.checkpoint[i].orarioPartenzaPrevisto.toDate();
             //@ts-ignore
             this.percorso.checkpoint[i].orarioPartenzaEffettivo = this.percorso.checkpoint[i].orarioPartenzaEffettivo.toDate();
+            const times = [this.percorso.checkpoint[i].orarioPartenzaEffettivo?.toLocaleString().split(', ')[1].split(':')[0], this.percorso.checkpoint[i].orarioPartenzaEffettivo?.toLocaleString().split(', ')[1].split(':')[1]];
+            //@ts-ignore
+            this.percorso.checkpoint[i].orarioPartenzaEffettivo = times[0] + ':' + times[1];
           }
           if (this.percorso.checkpoint[i].orarioPassaggioPrevisto) {
             //@ts-ignore
             this.percorso.checkpoint[i].orarioPassaggioPrevisto = this.percorso.checkpoint[i].orarioPassaggioPrevisto.toDate();
             //@ts-ignore
             this.percorso.checkpoint[i].orarioPassaggioEffettivo = this.percorso.checkpoint[i].orarioPassaggioEffettivo.toDate();
+            const times = [this.percorso.checkpoint[i].orarioPassaggioEffettivo?.toLocaleString().split(', ')[1].split(':')[0], this.percorso.checkpoint[i].orarioPassaggioEffettivo?.toLocaleString().split(', ')[1].split(':')[1]];
+            //@ts-ignore
+            this.percorso.checkpoint[i].orarioPassaggioEffettivo = times[0] + ':' + times[1];
           }
         }
-        console.log(this.percorso);
       },
       error: (error) => {
         console.error(error);
@@ -96,6 +104,39 @@ export class ManageComponent {
       //@ts-ignore
       this.percorso.checkpoint[index].orarioPassaggioEffettivo.setMinutes(times[1]);
     }
-    this.firestoreService.updatePercorso(this.tabItems[0].option, this.percorso);
+    for (let i = 0; i < this.percorso.checkpoint.length; i++) {
+      if(i === index) { continue; }
+      if (this.percorso.checkpoint[i].orarioArrivoPrevisto) {
+        //@ts-ignore
+        let times = [this.percorso.checkpoint[i].orarioArrivoEffettivo.split(':')[0], this.percorso.checkpoint[i].orarioArrivoEffettivo.split(':')[1]];
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioArrivoEffettivo = new Date(this.percorso.checkpoint[i].orarioArrivoPrevisto);
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioArrivoEffettivo.setHours(times[0]);
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioArrivoEffettivo.setMinutes(times[1]);
+      }
+      if (this.percorso.checkpoint[i].orarioPartenzaPrevisto) {
+        //@ts-ignore
+        let times = [this.percorso.checkpoint[i].orarioPartenzaEffettivo.split(':')[0], this.percorso.checkpoint[i].orarioPartenzaEffettivo.split(':')[1]];
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioPartenzaEffettivo = new Date(this.percorso.checkpoint[i].orarioPartenzaPrevisto);
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioPartenzaEffettivo.setHours(times[0]);
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioPartenzaEffettivo.setMinutes(times[1]);
+      }
+      if (this.percorso.checkpoint[i].orarioPassaggioPrevisto) {
+        //@ts-ignore
+        let times = [this.percorso.checkpoint[i].orarioPassaggioEffettivo.split(':')[0], this.percorso.checkpoint[i].orarioPassaggioEffettivo.split(':')[1]];
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioPassaggioEffettivo = new Date(this.percorso.checkpoint[i].orarioPassaggioPrevisto);
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioPassaggioEffettivo.setHours(times[0]);
+        //@ts-ignore
+        this.percorso.checkpoint[i].orarioPassaggioEffettivo.setMinutes(times[1]);
+      }
+      this.firestoreService.updatePercorso(this.tabItems[0].option, this.percorso);
+    }
   }
 }
