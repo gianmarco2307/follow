@@ -2,11 +2,12 @@ import { Component, DoCheck, Input, OnDestroy, OnInit, signal } from '@angular/c
 import { FirestoreService } from '../../servizi/firestore.service';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { MapComponent } from '../map/map.component';
 
 @Component({
   selector: 'app-tracking',
   standalone: true,
-  imports: [],
+  imports: [MapComponent],
   templateUrl: './tracking.component.html',
   styleUrl: './tracking.component.css'
 })
