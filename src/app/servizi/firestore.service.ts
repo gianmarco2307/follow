@@ -18,10 +18,9 @@ export class FirestoreService {
     }) as Observable<Percorso[]>;
   }
 
-  updatePercorso(docId: string): Observable<any> {
-    const newPer: Percorso = {id: 'Ciao', checkpoint: []};
+  updatePercorso(docId: string, percorso: Percorso): Observable<any> {
     const docRef = doc(this.percorsi, docId);
-    const promise = setDoc(docRef, newPer);
+    const promise = setDoc(docRef, percorso);
     return from(promise);
   }
 } 
