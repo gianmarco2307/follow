@@ -7,11 +7,12 @@ import { DatePipe, NgIf } from '@angular/common';
 import { Percorso } from '../../models/Percorso';
 import { FirestoreService } from '../../servizi/firestore.service';
 import { ButtonModule } from 'primeng/button';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
   selector: 'app-manage',
   standalone: true,
-  imports: [DropdownModule, FormsModule, NgIf, TableModule, DatePipe, ButtonModule],
+  imports: [DropdownModule, FormsModule, NgIf, TableModule, DatePipe, ButtonModule, InputMaskModule],
   templateUrl: './manage.component.html',
   styleUrl: './manage.component.css'
 })
@@ -52,5 +53,9 @@ export class ManageComponent {
         console.error(error);
       }
     })
+  }
+
+saveChanges(index: number){
+    console.log(this.percorso.checkpoint[index]);
   }
 }
