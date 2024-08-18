@@ -1,11 +1,12 @@
 <div class="last-detection">
-    <h3>{{lastPosition().id}}</h3>
-    <p>Ultimo rilevamento: {{is00(lastTime()) ? '--:--' : lastTime() | date:'HH:mm'}}</p>
+    <div class="detection">
+        <h3>{{lastPosition().id}}</h3>
+        <p>Ultimo rilevamento: {{is00(lastTime()) ? '--:--' : lastTime() | date:'HH:mm'}}</p>
+    </div>
     <div class="tag-container">
         <p-tag value="{{state()}}" />
     </div>
 </div>
-<p>tracking works! {{id()}}</p>
 <ng-container *ngIf="readyToShow()">
     <app-map [coordinates]="lastPosition().coordinate" />
 </ng-container>
