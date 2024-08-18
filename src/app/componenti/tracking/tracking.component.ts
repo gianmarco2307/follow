@@ -5,12 +5,13 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { MapComponent } from '../map/map.component';
 import { Checkpoint } from '../../models/Checkpoint';
 import { Percorso } from '../../models/Percorso';
-import { NgIf } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-tracking',
   standalone: true,
-  imports: [MapComponent, NgIf],
+  imports: [MapComponent, NgIf, DatePipe, TagModule],
   templateUrl: './tracking.component.html',
   styleUrl: './tracking.component.css'
 })
@@ -48,6 +49,22 @@ export class TrackingComponent implements OnInit, OnDestroy {
   });
   percorso = signal<Percorso>({} as Percorso);
   readyToShow = signal<boolean>(false);
+  lastTime = computed<Date>(() => {
+    let lT: Date = new Date();
+    if(this.lastPosition().orarioPartenzaPrevisto && this.lastPosition().orarioArrivoPrevisto){
+      //@ts-ignore
+      if(this.lastPosition().orarioPartenzaEffettivo?.getHours() >= 0 && this.lastPosition().orarioPartenzaEffettivo?.getMinutes() >= 0){
+        lT = this.lastPosition().orarioPartenzaEffettivo || new Date();
+      } else {
+        lT = this.lastPosition().orarioArrivoEffettivo || new Date();
+      }
+    } else {
+      if(this.lastPosition().orarioPartenzaPrevisto) lT = this.lastPosition().orarioPartenzaEffettivo || new Date();
+      if(this.lastPosition().orarioArrivoPrevisto) lT = this.lastPosition().orarioArrivoEffettivo || new Date();
+      if(this.lastPosition().orarioPassaggioPrevisto) lT = this.lastPosition().orarioPassaggioEffettivo || new Date();
+    }
+    return lT;
+  });
 
   constructor(private firestoreService: FirestoreService, private route: ActivatedRoute) {}
 
@@ -104,4 +121,54 @@ export class TrackingComponent implements OnInit, OnDestroy {
     });
   }
 
+  is00(data: Date): boolean {
+    return data.getHours() === 0 && data.getMinutes() === 0;
+  }
+
+  state(): string {
+    let difference: number = 0;
+    if(this.lastPosition() === this.percorso().checkpoint[0]){
+      if(this.lastPosition().orarioPartenzaEffettivo?.getHours() === 0 && this.lastPosition().orarioPartenzaEffettivo?.getMinutes() === 0){
+        return 'NON PARTITO'
+      }
+    }
+    if(this.lastPosition().orarioPartenzaPrevisto && this.lastPosition().orarioArrivoPrevisto){
+      //@ts-ignore
+      if(this.lastPosition().orarioPartenzaEffettivo?.getHours() >= 0 && this.lastPosition().orarioPartenzaEffettivo?.getMinutes() >= 0){
+        //@ts-ignore
+        let diffInMs = this.lastPosition().orarioPartenzaEffettivo.getTime() - this.lastPosition().orarioPartenzaPrevisto.getTime();
+        difference = Math.floor(diffInMs / (1000 * 60));
+      } else {
+        //@ts-ignore
+        let diffInMs = this.lastPosition().orarioArrivoEffettivo.getTime() - this.lastPosition().orarioArrivoPrevisto.getTime();
+        difference = Math.floor(diffInMs / (1000 * 60));
+      }
+    } else {
+      if(this.lastPosition().orarioPartenzaPrevisto){
+        //@ts-ignore
+        let diffInMs = this.lastPosition().orarioPartenzaEffettivo.getTime() - this.lastPosition().orarioPartenzaPrevisto.getTime();
+        difference = Math.floor(diffInMs / (1000 * 60));
+      }
+      if(this.lastPosition().orarioArrivoPrevisto){
+        //@ts-ignore
+        let diffInMs = this.lastPosition().orarioArrivoEffettivo.getTime() - this.lastPosition().orarioArrivoPrevisto.getTime();
+        difference = Math.floor(diffInMs / (1000 * 60));
+      }
+      if(this.lastPosition().orarioPassaggioPrevisto){
+        //@ts-ignore
+        let diffInMs = this.lastPosition().orarioPassaggioEffettivo.getTime() - this.lastPosition().orarioPassaggioPrevisto.getTime();
+        difference = Math.floor(diffInMs / (1000 * 60));
+      }
+    }
+    if (difference < 0) {
+      return difference.toString() + ' MIN';
+    }
+    if (difference > 0) {
+      return '+' + difference.toString() + ' MIN';
+    }
+    if (difference === 0) {
+      return 'IN ORARIO';
+    }
+    return 'NON PARTITO';
+  }
 }
