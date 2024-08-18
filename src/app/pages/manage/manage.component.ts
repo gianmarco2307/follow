@@ -8,6 +8,7 @@ import { Percorso } from '../../models/Percorso';
 import { FirestoreService } from '../../servizi/firestore.service';
 import { ButtonModule } from 'primeng/button';
 import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-manage',
@@ -20,6 +21,7 @@ import { InputMaskModule } from 'primeng/inputmask';
     DatePipe,
     ButtonModule,
     InputMaskModule,
+    InputNumberModule
   ],
   templateUrl: './manage.component.html',
   styleUrl: './manage.component.css',

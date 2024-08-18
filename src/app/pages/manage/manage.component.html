@@ -34,6 +34,7 @@
           <td>{{ cp.orarioArrivoPrevisto | date: "HH:mm" }}</td>
           <td>
             <p-inputMask
+              pInputNumber
               mask="99:99"
               [(ngModel)]="cp.orarioArrivoEffettivo"
               placeholder="00:00"
@@ -47,6 +48,7 @@
           <td>{{ cp.orarioPartenzaPrevisto | date: "HH:mm" }}</td>
           <td>
             <p-inputMask
+              pInputNumber
               mask="99:99"
               [(ngModel)]="cp.orarioPartenzaEffettivo"
               placeholder="00:00"
@@ -60,6 +62,7 @@
           <td>{{ cp.orarioPassaggioPrevisto | date: "HH:mm" }}</td>
           <td>
             <p-inputMask
+              pInputNumber
               mask="99:99"
               [(ngModel)]="cp.orarioPassaggioEffettivo"
               placeholder="00:00"
