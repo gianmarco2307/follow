@@ -40,6 +40,9 @@ export class TrackingComponent implements OnInit, OnDestroy {
           break
         }
       }
+      if (i === 0) {
+        lP = this.percorso().checkpoint[0];
+      }
     }
     return lP;
   });
@@ -93,8 +96,8 @@ export class TrackingComponent implements OnInit, OnDestroy {
         }
         return newPercorso;
       });
-      // console.log('percorso ',this.percorso());
-      // console.log('ultima posizione ',this.lastPosition());
+      console.log('percorso ',this.percorso());
+      console.log('ultima posizione ',this.lastPosition());
       this.readyToShow.set(true);
       //Per formattare la data
       //console.log(percorsi.filter((percorso: any) => percorso.id === this.id())[0].checkpoint[0].orarioPassaggioPrevisto.toDate());
