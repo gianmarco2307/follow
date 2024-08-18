@@ -1,2 +1,4 @@
 <p>tracking works! {{id()}}</p>
-<app-map [coordinates]="'15.014642, 37.275065'" />
+<ng-container *ngIf="readyToShow()">
+    <app-map [coordinates]="lastPosition().coordinate" />
+</ng-container>
