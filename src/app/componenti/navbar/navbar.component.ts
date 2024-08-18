@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateToHome() {
-    window.location.href = '/follow/home';
+    window.location.href = '/follow';
   }
   
   share() {
@@ -76,6 +76,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    window.open('/follow/home', '_self');
+    window.open('/follow', '_self');
   }
 }
