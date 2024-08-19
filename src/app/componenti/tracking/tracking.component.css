@@ -22,17 +22,18 @@
 .map-section {
     display: flex;
     flex-direction: row;
-    max-height: 400px;
 }
 
 .timeline{
     flex: 1;
     max-height: inherit;
     overflow-y: auto;
+    max-height: 400px;
 }
 
 .map {
     flex: 2;
+    max-height: 400px;
 }
 
 :host ::ng-deep .p-timeline-event-opposite {
@@ -51,6 +52,12 @@
     .tag-container {
         flex: 2;
     }
+    .timeline {
+        flex: 1;
+    }
+    .map {
+        flex: 1;
+    }
 }
 
 @media (400px < width <= 600px) {
@@ -62,6 +69,13 @@
         flex: 1;
         text-align: center;
     }
+    .map-section {
+        flex-direction: column-reverse;
+    }
+    .timeline {
+        max-height: fit-content;
+        margin: 10px auto;
+    }
 }
 
 @media (width <= 400px) {
@@ -72,5 +86,12 @@
     .tag-container {
         flex: 1;
         text-align: center;
+    }
+    .map-section {
+        flex-direction: column-reverse;
+    }
+    .timeline {
+        max-height: fit-content;
+        margin: 10px auto;
     }
 }
