@@ -150,13 +150,13 @@ export class TrackingComponent implements OnInit, OnDestroy {
       }
     }
     if(this.lastPosition().orarioPartenzaPrevisto && this.lastPosition().orarioArrivoPrevisto){
-      if(!this.is00(this.lastPosition().orarioArrivoEffettivo)){
+      if(!this.is00(this.lastPosition().orarioPartenzaEffettivo)){
         //@ts-ignore
-        let diffInMs = this.lastPosition().orarioArrivoEffettivo.getTime() - this.lastPosition().orarioArrivoPrevisto.getTime();
+        let diffInMs = this.lastPosition().orarioPartenzaEffettivo.getTime() - this.lastPosition().orarioPartenzaPrevisto.getTime();
         difference = Math.floor(diffInMs / (1000 * 60));
       } else {
         //@ts-ignore
-        let diffInMs = this.lastPosition().orarioPartenzaEffettivo.getTime() - this.lastPosition().orarioPartenzaPrevisto.getTime();
+        let diffInMs = this.lastPosition().orarioArrivoEffettivo.getTime() - this.lastPosition().orarioArrivoPrevisto.getTime();
         difference = Math.floor(diffInMs / (1000 * 60));
       }
     } else {
