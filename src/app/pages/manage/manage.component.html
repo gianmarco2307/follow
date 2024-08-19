@@ -15,24 +15,22 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Nome</th>
-        <th>ID</th>
-        <th>Arrivo Previsto</th>
-        <th>Arrivo Effettivo</th>
-        <th>Partenza Prevista</th>
-        <th>Partenza Effettiva</th>
-        <th>Transito Previsto</th>
-        <th>Transito Effettivo</th>
+        <th class="in-tr">ID</th>
+        <th class="in-tr">Arrivo Previsto</th>
+        <th class="in-tr">Arrivo Effettivo</th>
+        <th class="in-tr">Partenza Prevista</th>
+        <th class="in-tr">Partenza Effettiva</th>
+        <th class="in-tr">Transito Previsto</th>
+        <th class="in-tr">Transito Effettivo</th>
         <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-cp let-rowIndex="rowIndex">
       <tr>
-        <td>{{ cp.nome }}</td>
-        <td>{{ cp.id }}</td>
+        <td class="in-tr">{{ cp.id }}</td>
         @if (cp.orarioArrivoPrevisto) {
-          <td>{{ cp.orarioArrivoPrevisto | date: "HH:mm" }}</td>
-          <td>
+          <td class="in-tr">{{ cp.orarioArrivoPrevisto | date: "HH:mm" }}</td>
+          <td class="in-tr">
             <p-inputMask
               pInputNumber
               mask="99:99"
@@ -41,12 +39,12 @@
             />
           </td>
         } @else {
-          <td>--:--</td>
-          <td>--:--</td>
+          <td class="in-tr">--:--</td>
+          <td class="in-tr">--:--</td>
         }
         @if (cp.orarioPartenzaPrevisto) {
-          <td>{{ cp.orarioPartenzaPrevisto | date: "HH:mm" }}</td>
-          <td>
+          <td class="in-tr">{{ cp.orarioPartenzaPrevisto | date: "HH:mm" }}</td>
+          <td class="in-tr">
             <p-inputMask
               pInputNumber
               mask="99:99"
@@ -55,12 +53,12 @@
             />
           </td>
         } @else {
-          <td>--:--</td>
-          <td>--:--</td>
+          <td class="in-tr">--:--</td>
+          <td class="in-tr">--:--</td>
         }
         @if (cp.orarioPassaggioPrevisto) {
-          <td>{{ cp.orarioPassaggioPrevisto | date: "HH:mm" }}</td>
-          <td>
+          <td class="in-tr">{{ cp.orarioPassaggioPrevisto | date: "HH:mm" }}</td>
+          <td class="in-tr">
             <p-inputMask
               pInputNumber
               mask="99:99"
@@ -69,10 +67,10 @@
             />
           </td>
         } @else {
-          <td>--:--</td>
-          <td>--:--</td>
+          <td class="in-tr">--:--</td>
+          <td class="in-tr">--:--</td>
         }
-        <td><p-button label="Salva" (click)="saveChanges(rowIndex)" /></td>
+        <td class="in-tr"><p-button label="Salva" (click)="saveChanges(rowIndex)" /></td>
       </tr>
     </ng-template>
   </p-table>
