@@ -138,7 +138,7 @@ export class ManageComponent {
         //@ts-ignore
         this.percorso.checkpoint[i].orarioPassaggioEffettivo.setMinutes(times[1]);
       }
-      this.firestoreService.updatePercorso(this.tabItems[0].option, this.percorso);
+      this.firestoreService.updatePercorso(this.selectedDay.option, this.percorso);
     }
   }
 }
