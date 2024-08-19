@@ -19,6 +19,26 @@
      align-content: center;
 }
 
+.map-section {
+    display: flex;
+    flex-direction: row;
+    max-height: 400px;
+}
+
+.timeline{
+    flex: 1;
+    max-height: inherit;
+    overflow-y: auto;
+}
+
+.map {
+    flex: 2;
+}
+
+:host ::ng-deep .p-timeline-event-opposite {
+    font-size: 12px
+}
+
 @media (600px < width <= 900px) {
     .detection {
         flex: 2;

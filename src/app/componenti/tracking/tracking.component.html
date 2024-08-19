@@ -7,6 +7,43 @@
         <p-tag value="{{state()}}" />
     </div>
 </div>
-<ng-container *ngIf="readyToShow()">
-    <app-map [coordinates]="lastPosition().coordinate" />
-</ng-container>
+<div class="map-section">
+    <div class="timeline">
+        <p-timeline [value]="percorso().checkpoint">
+            <ng-template pTemplate="content" let-cp>
+                {{ cp.nome }}
+            </ng-template>
+            <ng-template pTemplate="opposite" let-cp>
+                @if(cp.orarioArrivoPrevisto){
+                    <p>Arrivo previsto: {{cp.orarioArrivoPrevisto | date:'HH:mm'}}</p>
+                    @if(is00(cp.orarioArrivoEffettivo)){
+                        <p>Arrivo effettivo: --:--</p>
+                    } @else {
+                        <p>Arrivo effettivo: {{cp.orarioArrivoEffettivo | date:'HH:mm'}}</p>
+                    }
+                }
+                @if(cp.orarioPartenzaPrevisto){
+                    <p>Partenza Prevista: {{cp.orarioPartenzaPrevisto | date:'HH:mm'}}</p>
+                    @if(is00(cp.orarioPartenzaEffettivo)){
+                        <p>Partenza effettiva: --:--</p>
+                    } @else {
+                        <p>Partenza effettiva: {{cp.orarioPartenzaEffettivo | date:'HH:mm'}}</p>
+                    }
+                }
+                @if(cp.orarioPassaggioPrevisto){
+                    <p>Transito Previsto: {{cp.orarioPassaggioPrevisto | date:'HH:mm'}}</p>
+                    @if(is00(cp.orarioPassaggioEffettivo)){
+                        <p>Transito effettivo: --:--</p>
+                    } @else {
+                        <p>Transito effettivo: {{cp.orarioPassaggioEffettivo | date:'HH:mm'}}</p>
+                    }   
+                }
+            </ng-template>
+        </p-timeline>
+    </div>
+    <div class="map">
+        <ng-container *ngIf="readyToShow()">
+            <app-map [coordinates]="lastPosition().coordinate" />
+        </ng-container>
+    </div>
+</div>

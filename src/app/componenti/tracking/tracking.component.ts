@@ -7,11 +7,12 @@ import { Checkpoint } from '../../models/Checkpoint';
 import { Percorso } from '../../models/Percorso';
 import { DatePipe, NgIf } from '@angular/common';
 import { TagModule } from 'primeng/tag';
+import { TimelineModule } from 'primeng/timeline';
 
 @Component({
   selector: 'app-tracking',
   standalone: true,
-  imports: [MapComponent, NgIf, DatePipe, TagModule],
+  imports: [MapComponent, NgIf, DatePipe, TagModule, TimelineModule],
   templateUrl: './tracking.component.html',
   styleUrl: './tracking.component.css'
 })
