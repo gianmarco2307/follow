@@ -39,6 +39,10 @@
     font-size: 12px
 }
 
+:host ::ng-deep .p-timeline-event-marker {
+    border-color: var(--verde);
+}
+
 @media (600px < width <= 900px) {
     .detection {
         flex: 2;
