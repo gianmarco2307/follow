@@ -22,21 +22,26 @@ export class TrackingComponent implements OnInit, OnDestroy {
   lastPosition = computed<Checkpoint>(() => {
     let lP: Checkpoint = {} as Checkpoint;
     for (let i = this.percorso().checkpoint.length - 1; i >= 0; i--) {
+      if(this.percorso().checkpoint[i].orarioArrivoPrevisto && this.percorso().checkpoint[i].orarioPartenzaPrevisto){
+        if(this.is00(this.percorso().checkpoint[i].orarioArrivoEffettivo) && this.is00(this.percorso().checkpoint[i].orarioPartenzaEffettivo)){
+          continue;
+        } else {
+          lP = this.percorso().checkpoint[i];
+          break
+        }
+      }
       if (this.percorso().checkpoint[i].orarioPassaggioPrevisto && this.percorso().checkpoint[i].orarioPassaggioEffettivo) {
-        //@ts-ignore
-        if(this.percorso().checkpoint[i].orarioPassaggioEffettivo?.getHours() > 0 && this.percorso().checkpoint[i].orarioPassaggioEffettivo?.getMinutes() > 0){
+        if(!this.is00(this.percorso().checkpoint[i].orarioPassaggioEffettivo)){
           lP = this.percorso().checkpoint[i];
           break
         }
       } else if(this.percorso().checkpoint[i].orarioArrivoPrevisto && this.percorso().checkpoint[i].orarioArrivoEffettivo){
-        //@ts-ignore
-        if(this.percorso().checkpoint[i].orarioArrivoEffettivo?.getHours() > 0 && this.percorso().checkpoint[i].orarioArrivoEffettivo?.getMinutes() > 0){
+        if(!this.is00(this.percorso().checkpoint[i].orarioArrivoEffettivo)){
           lP = this.percorso().checkpoint[i];
           break
         }
       } else if(this.percorso().checkpoint[i].orarioPartenzaPrevisto && this.percorso().checkpoint[i].orarioPartenzaEffettivo){
-        //@ts-ignore
-        if(this.percorso().checkpoint[i].orarioPartenzaEffettivo?.getHours() > 0 && this.percorso().checkpoint[i].orarioPartenzaEffettivo?.getMinutes() > 0){
+        if(!this.is00(this.percorso().checkpoint[i].orarioPartenzaEffettivo)){
           lP = this.percorso().checkpoint[i];
           break
         }
@@ -51,20 +56,28 @@ export class TrackingComponent implements OnInit, OnDestroy {
   readyToShow = signal<boolean>(false);
   lastTime = computed<Date>(() => {
     let lT: Date = new Date();
-    if(this.lastPosition().orarioPartenzaPrevisto && this.lastPosition().orarioArrivoPrevisto){
-      //@ts-ignore
-      if(this.lastPosition().orarioPartenzaEffettivo?.getHours() >= 0 && this.lastPosition().orarioPartenzaEffettivo?.getMinutes() >= 0){
-        lT = this.lastPosition().orarioPartenzaEffettivo || new Date();
+    const lastPos = this.lastPosition();
+    
+    if (lastPos.orarioArrivoEffettivo && !this.is00(lastPos.orarioArrivoEffettivo)) {
+      if (lastPos.orarioPartenzaEffettivo && this.is00(lastPos.orarioPartenzaEffettivo)) {
+        lT = lastPos.orarioArrivoEffettivo;
+      } else if (lastPos.orarioPartenzaEffettivo && !this.is00(lastPos.orarioPartenzaEffettivo)) {
+        lT = lastPos.orarioPartenzaEffettivo;
       } else {
-        lT = this.lastPosition().orarioArrivoEffettivo || new Date();
+        lT = lastPos.orarioArrivoEffettivo;
       }
+    } else if (lastPos.orarioPartenzaEffettivo && !this.is00(lastPos.orarioPartenzaEffettivo)) {
+      lT = lastPos.orarioPartenzaEffettivo;
+    } else if (lastPos.orarioPassaggioEffettivo && !this.is00(lastPos.orarioPassaggioEffettivo)) {
+      lT = lastPos.orarioPassaggioEffettivo;
     } else {
-      if(this.lastPosition().orarioPartenzaPrevisto) lT = this.lastPosition().orarioPartenzaEffettivo || new Date();
-      if(this.lastPosition().orarioArrivoPrevisto) lT = this.lastPosition().orarioArrivoEffettivo || new Date();
-      if(this.lastPosition().orarioPassaggioPrevisto) lT = this.lastPosition().orarioPassaggioEffettivo || new Date();
+      lT = new Date();
+      lT.setHours(0);
+      lT.setMinutes(0);
     }
+    
     return lT;
-  });
+    });
 
   constructor(private firestoreService: FirestoreService, private route: ActivatedRoute) {}
 
@@ -121,26 +134,28 @@ export class TrackingComponent implements OnInit, OnDestroy {
     });
   }
 
-  is00(data: Date): boolean {
+  is00(data: Date | undefined): boolean {
+    if (!data) {
+      return false;
+    }
     return data.getHours() === 0 && data.getMinutes() === 0;
   }
 
   state(): string {
     let difference: number = 0;
     if(this.lastPosition() === this.percorso().checkpoint[0]){
-      if(this.lastPosition().orarioPartenzaEffettivo?.getHours() === 0 && this.lastPosition().orarioPartenzaEffettivo?.getMinutes() === 0){
+      if(this.is00(this.lastPosition().orarioPartenzaEffettivo)){
         return 'NON PARTITO'
       }
     }
     if(this.lastPosition().orarioPartenzaPrevisto && this.lastPosition().orarioArrivoPrevisto){
-      //@ts-ignore
-      if(this.lastPosition().orarioPartenzaEffettivo?.getHours() >= 0 && this.lastPosition().orarioPartenzaEffettivo?.getMinutes() >= 0){
+      if(!this.is00(this.lastPosition().orarioArrivoEffettivo)){
         //@ts-ignore
-        let diffInMs = this.lastPosition().orarioPartenzaEffettivo.getTime() - this.lastPosition().orarioPartenzaPrevisto.getTime();
+        let diffInMs = this.lastPosition().orarioArrivoEffettivo.getTime() - this.lastPosition().orarioArrivoPrevisto.getTime();
         difference = Math.floor(diffInMs / (1000 * 60));
       } else {
         //@ts-ignore
-        let diffInMs = this.lastPosition().orarioArrivoEffettivo.getTime() - this.lastPosition().orarioArrivoPrevisto.getTime();
+        let diffInMs = this.lastPosition().orarioPartenzaEffettivo.getTime() - this.lastPosition().orarioPartenzaPrevisto.getTime();
         difference = Math.floor(diffInMs / (1000 * 60));
       }
     } else {
