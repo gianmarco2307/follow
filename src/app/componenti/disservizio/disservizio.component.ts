@@ -8,6 +8,7 @@ import { DividerModule } from 'primeng/divider';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
+import { Disservizio } from '../../models/Disservizio';
 
 @Component({
   selector: 'app-disservizio',
@@ -50,5 +51,22 @@ export class DisservizioComponent implements OnChanges {
   hidingNewDisservizioModal() {
     this.message.set('');
     this.activeDisservizio.set(true);
+  }
+
+  reportDisservizio() {
+    let newDisservizio: Disservizio = {
+      descrizione: this.message(),
+      attivo: this.activeDisservizio()
+    }
+    let newDisservizi = [...this.disservizi, newDisservizio];
+    let collection: DisserviziCollection = {
+      id: this.id,
+      disservizi: newDisservizi
+    }
+    this.disserviziService.updateDisservizio(this.id, collection).subscribe({
+      next: (res) => {
+        this.newDisservizioModalVisible = false;
+      }
+    })
   }
 }
