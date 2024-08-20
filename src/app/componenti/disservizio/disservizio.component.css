@@ -2,6 +2,7 @@
     background-color: #DA552F;
     border-color: #DA552F;
     font-weight: 200;
+    color: #ffffff;
 }
 
 :host ::ng-deep .p-button:focus {
