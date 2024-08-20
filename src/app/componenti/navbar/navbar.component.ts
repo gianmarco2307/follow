@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
         url: '/home',
       },
       {
-        label: 'Codividi',
+        label: 'Condividi',
         icon: 'pi pi-share-alt',
       },
     ];
