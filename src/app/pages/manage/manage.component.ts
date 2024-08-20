@@ -9,6 +9,7 @@ import { FirestoreService } from '../../servizi/firestore.service';
 import { ButtonModule } from 'primeng/button';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DisservizioComponent } from '../../componenti/disservizio/disservizio.component';
 
 @Component({
   selector: 'app-manage',
@@ -21,7 +22,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     DatePipe,
     ButtonModule,
     InputMaskModule,
-    InputNumberModule
+    InputNumberModule,
+    DisservizioComponent
   ],
   templateUrl: './manage.component.html',
   styleUrl: './manage.component.css',

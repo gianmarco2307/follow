@@ -9,6 +9,9 @@
 </div>
 
 <div class="content">
+  <ng-container *ngIf="selectedDay">
+    <app-disservizio [id]="selectedDay.option" />
+  </ng-container>
   <p-table
     [value]="percorso.checkpoint"
     [tableStyle]="{ 'min-width': '50rem' }"
