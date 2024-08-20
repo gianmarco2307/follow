@@ -37,11 +37,6 @@ export class NavbarComponent implements OnInit {
         url: '/home',
       },
       {
-        label: 'Contatti',
-        icon: 'pi pi-address-book',
-        url: '/contatti',
-      },
-      {
         label: 'Codividi',
         icon: 'pi pi-share-alt',
       },
