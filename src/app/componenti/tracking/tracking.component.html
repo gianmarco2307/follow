@@ -1,3 +1,11 @@
+<ng-container *ngIf="disserviziInCorso()">
+    @for(dis of disserviziInCorso(); track dis.descrizione){
+        <div class="disservizio">
+            <span class="pi pi-exclamation-triangle icona-disservizio"></span>
+            <p>{{dis.descrizione}}</p>
+        </div>
+    }
+</ng-container>
 <div class="last-detection">
     <div class="detection">
         <h3>{{lastPosition().id}}</h3>

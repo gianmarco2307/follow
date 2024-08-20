@@ -5,14 +5,17 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { MapComponent } from '../map/map.component';
 import { Checkpoint } from '../../models/Checkpoint';
 import { Percorso } from '../../models/Percorso';
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { TimelineModule } from 'primeng/timeline';
+import { DisserviziService } from '../../servizi/disservizi.service';
+import { Disservizio } from '../../models/Disservizio';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-tracking',
   standalone: true,
-  imports: [MapComponent, NgIf, DatePipe, TagModule, TimelineModule],
+  imports: [MapComponent, NgIf, DatePipe, TagModule, TimelineModule, NgForOf, MessagesModule],
   templateUrl: './tracking.component.html',
   styleUrl: './tracking.component.css'
 })
@@ -78,9 +81,10 @@ export class TrackingComponent implements OnInit, OnDestroy {
     }
     
     return lT;
-    });
+  });
+  protected disserviziInCorso = signal<Disservizio[]>([]);
 
-  constructor(private firestoreService: FirestoreService, private route: ActivatedRoute) {}
+  constructor(private firestoreService: FirestoreService, private route: ActivatedRoute, private disservizi: DisserviziService) {}
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe((params) => {
@@ -90,6 +94,7 @@ export class TrackingComponent implements OnInit, OnDestroy {
 
     this.idSubject.subscribe((id) => {
       this.getPercorso();
+      this.getDisservizi();
     });
   }
 
@@ -133,6 +138,17 @@ export class TrackingComponent implements OnInit, OnDestroy {
       //Per formattare la data
       //console.log(percorsi.filter((percorso: any) => percorso.id === this.id())[0].checkpoint[0].orarioPassaggioPrevisto.toDate());
     });
+  }
+
+  getDisservizi(): void {
+    this.disservizi.getDisservizi().subscribe((res) => {
+      //@ts-ignore
+      this.disserviziInCorso.set(res.find((disservizio) => disservizio.id === this.id()).disservizi);
+      this.disserviziInCorso.update((disservizi) => {
+        let newDissevizi = disservizi.filter((disservizio) => disservizio.attivo === true);
+        return newDissevizi;
+      });
+    })
   }
 
   is00(data: Date | undefined): boolean {
