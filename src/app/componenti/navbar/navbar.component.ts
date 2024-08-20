@@ -56,8 +56,8 @@ export class NavbarComponent implements OnInit {
       navigator
         .share({
           title: 'Segui Santa Lucia',
-          text: 'Descrizione della piattaforma',
-          url: 'https://www.tuapiattaforma.com',
+          text: 'Segui Santa Lucia',
+          url: 'https://gianmarco2307.github.io/follow/home',
         })
         .then(() => {
           console.log('Condivisione avvenuta con successo');
