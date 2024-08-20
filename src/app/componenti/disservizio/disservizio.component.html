@@ -5,6 +5,20 @@
 <p-dialog header="Disservizi" [modal]="true" [(visible)]="disserviziModalVisible" [style]="{ width: '25rem' }">
     @if(disservizi.length > 0) {
         <span class="p-text-secondary block mb-5">Disservizi già presenti:</span>
+        <p-listbox 
+            [options]="disservizi" 
+            optionLabel="name" 
+            [listStyle]="{ 'max-height': '250px' }" 
+            [style]="{ width: '100%' }" 
+            [listStyle]="{'max-height': '220px'}">
+                <ng-template let-dis pTemplate="item" let-index="index">
+                    <div class="flex align-items-center gap-2" (click)="onClickOpenEditDisservizioModal(index)">
+                        <span *ngIf="dis.attivo" class="pi pi-exclamation-circle" style="color: #DA552F"></span>
+                        <span *ngIf="!dis.attivo" class="pi pi-exclamation-circle" style="color: var(--green)"></span>
+                        <div>{{ dis.descrizione }}</div>
+                    </div>
+                </ng-template>
+        </p-listbox>
     } @else {
         <span class="p-text-secondary block mb-5">Nessun disservizio presente</span>
     }
@@ -30,5 +44,24 @@
     </div>
     <div>
         <p-button label="Aggiungi" icon="pi pi-plus" (onClick)="reportDisservizio()" />
+    </div>
+</p-dialog>
+
+<p-dialog header="Modifica disservizio" [modal]="true" [(visible)]="editDisservizioModalVisible" [style]="{ width: '25rem' }" (onHide)="hidingEditDisservizioModal()">
+    <textarea 
+        rows="5"
+        cols="30" 
+        pInputTextarea 
+        [(ngModel)]="message">
+    </textarea>
+    <div class="checkbox">
+        <p-checkbox 
+            [(ngModel)]="activeDisservizio" 
+            [binary]="true" 
+            inputId="binary" />
+        <label for="binary">In Corso</label>
+    </div>
+    <div>
+        <p-button label="Modifica" icon="pi pi-pencil" (onClick)="editDisservizio()" />
     </div>
 </p-dialog>
