@@ -1,0 +1,10 @@
+:host ::ng-deep .p-button {
+    background-color: #DA552F;
+    border-color: #DA552F;
+    font-weight: 200;
+}
+
+div {
+    width: fit-content;
+    margin: 10px auto;
+}
