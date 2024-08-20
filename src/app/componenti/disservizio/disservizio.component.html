@@ -10,9 +10,25 @@
     }
     <p-divider />
     <div class="flex align-items-center gap-3 mb-3">
-        <p-button label="Aggiungi" icon="pi pi-plus" (onClick)="onClickOpenNewDisservizioModal()" (onClick)="onClickOpenNewDisservizioModal()" />
+        <p-button label="Aggiungi" icon="pi pi-plus" (onClick)="onClickOpenNewDisservizioModal()" />
     </div>
 </p-dialog>
 
-<p-dialog header="Segnala disservizio" [modal]="true" [(visible)]="newDisservizioModalVisible" [style]="{ width: '25rem' }">
+<p-dialog header="Segnala disservizio" [modal]="true" [(visible)]="newDisservizioModalVisible" [style]="{ width: '25rem' }" (onHide)="hidingNewDisservizioModal()">
+    <textarea 
+        rows="5"
+        cols="30" 
+        pInputTextarea 
+        [(ngModel)]="message">
+    </textarea>
+    <div class="checkbox">
+        <p-checkbox 
+            [(ngModel)]="activeDisservizio" 
+            [binary]="true" 
+            inputId="binary" />
+        <label for="binary">In Corso</label>
+    </div>
+    <div>
+        <p-button label="Aggiungi" icon="pi pi-plus" />
+    </div>
 </p-dialog>
