@@ -4,6 +4,10 @@
     font-weight: 200;
 }
 
+:host ::ng-deep .p-button:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #DA552F, 0 1px 2px 0 black
+}
+
 div {
     width: fit-content;
     margin: 10px auto;
