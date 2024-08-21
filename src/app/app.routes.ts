@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ManageComponent } from './pages/manage/manage.component';
 import { authGuard } from './guardie/auth.guard';
 import { TrackingComponent } from './componenti/tracking/tracking.component';
+import { NotFoundComponent } from './pages/404/404.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -12,4 +13,5 @@ export const routes: Routes = [
     ]},
     {path: 'login', component: LoginComponent},
     {path: 'manage', component: ManageComponent, canActivate: [authGuard]},
+    {path: '**', component: NotFoundComponent}
 ];

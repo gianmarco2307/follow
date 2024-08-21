@@ -1,0 +1,13 @@
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    flex-flow: column nowrap;
+}
+
+h1 {
+    font-size: 40px;
+    color: #9c2d25;
+    margin: 10px
+}
